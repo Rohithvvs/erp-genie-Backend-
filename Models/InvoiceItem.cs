@@ -1,4 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+
+namespace ErpApi.Models
+=======
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERPBackend.Models
@@ -7,6 +10,13 @@ namespace ERPBackend.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        public int InvoiceId { get; set; }
+        public Invoice? Invoice { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+=======
         public int InvoiceId { get; set; }
 
         public int ProductId { get; set; }
@@ -18,6 +28,14 @@ namespace ERPBackend.Models
         [Required]
         public int Quantity { get; set; }
 
+        [MaxLength(50)]
+        public string? Case { get; set; }
+
+        [Required]
+        public decimal Price { get; set; }
+
+        public decimal GST { get; set; }
+=======
         [StringLength(50)]
         public string Case { get; set; } = string.Empty;
 
@@ -36,5 +54,6 @@ namespace ERPBackend.Models
         // Navigation properties
         public Invoice Invoice { get; set; } = null!;
         public Product Product { get; set; } = null!;
+
     }
 }
