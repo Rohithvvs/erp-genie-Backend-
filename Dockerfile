@@ -1,3 +1,23 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY ["ERPBackend.csproj", "./"]
+RUN dotnet restore "ERPBackend.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "ERPBackend.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "ERPBackend.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+=======
 # Use the official .NET SDK image for building
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -40,4 +60,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:5000/health || exit 1
 
 # Start the application
+
 ENTRYPOINT ["dotnet", "ERPBackend.dll"]

@@ -1,5 +1,16 @@
 services:
   - type: web
+    name: erp-backend
+    env: dotnet
+    buildCommand: dotnet publish -c Release -o out
+    startCommand: dotnet out/ERPBackend.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: erp-postgres
+=======
     name: erp-backend-api
     env: docker
     plan: starter
@@ -19,6 +30,18 @@ services:
         value: ERPBackend
       - key: JwtSettings__Audience
         value: ERPFrontend
+      - key: JwtSettings__ExpirationHours
+        value: 24
+      - key: CorsOrigins__0
+        value: https://your-app-name.vercel.app
+      - key: CorsOrigins__1
+        value: http://localhost:3000
+
+databases:
+  - name: erp-postgres
+    databaseName: erp_db
+    user: erp_user
+=======
       - key: JwtSettings__ExpirationInHours
         value: 24
 
