@@ -1,9 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ErpApi.Models
-=======
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace ERPBackend.Models
 {
     public class InvoiceItem
@@ -12,13 +8,8 @@ namespace ERPBackend.Models
 
         [Required]
         public int InvoiceId { get; set; }
-        public Invoice? Invoice { get; set; }
 
         [Required]
-        [MaxLength(100)]
-=======
-        public int InvoiceId { get; set; }
-
         public int ProductId { get; set; }
 
         [Required]
@@ -26,34 +17,29 @@ namespace ERPBackend.Models
         public string ItemName { get; set; } = string.Empty;
 
         [Required]
+        [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
 
-        [MaxLength(50)]
-        public string? Case { get; set; }
-
         [Required]
-        public decimal Price { get; set; }
-
-        public decimal GST { get; set; }
-=======
         [StringLength(50)]
         public string Case { get; set; } = string.Empty;
 
         [Required]
-        [Column(TypeName = "decimal(10,2)")]
+        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
-        [Column(TypeName = "decimal(5,2)")]
+        [Required]
+        [Range(0, 100)]
         public decimal GST { get; set; }
 
-        [Column(TypeName = "decimal(10,2)")]
-        public decimal LineTotal { get; set; }
+        [Required]
+        [Range(0, double.MaxValue)]
+        public decimal TotalPrice { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        public Invoice Invoice { get; set; } = null!;
-        public Product Product { get; set; } = null!;
-
+        public virtual Invoice Invoice { get; set; } = null!;
+        public virtual Product Product { get; set; } = null!;
     }
 }
