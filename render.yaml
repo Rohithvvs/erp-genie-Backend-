@@ -10,6 +10,19 @@ services:
       - key: ConnectionStrings__DefaultConnection
         fromDatabase:
           name: erp-postgres
+=======
+    name: erp-backend-api
+    env: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:5000
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: erp-database
           property: connectionString
       - key: JwtSettings__SecretKey
         generateValue: true
@@ -28,3 +41,12 @@ databases:
   - name: erp-postgres
     databaseName: erp_db
     user: erp_user
+=======
+      - key: JwtSettings__ExpirationInHours
+        value: 24
+
+databases:
+  - name: erp-database
+    databaseName: erp_db
+    user: erp_user
+    plan: starter

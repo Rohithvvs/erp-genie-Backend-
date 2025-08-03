@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+///// cursor/develop-net-core-erp-backend-api-2f37
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERPBackend.Models
@@ -7,6 +8,13 @@ namespace ERPBackend.Models
     public class User
     {
         [Key]
+=======
+
+namespace ERPBackend.Models
+{
+    public class User
+    {
+//// erp
         public int Id { get; set; }
 
         [Required]
@@ -14,7 +22,10 @@ namespace ERPBackend.Models
         public string Username { get; set; } = string.Empty;
 
         [Required]
+//// cursor/develop-net-core-erp-backend-api-2f37
         [StringLength(255)]
+=======
+////erp
         public string PasswordHash { get; set; } = string.Empty;
 
         [Required]
@@ -22,20 +33,31 @@ namespace ERPBackend.Models
         public string ShopName { get; set; } = string.Empty;
 
         [Required]
+///// cursor/develop-net-core-erp-backend-api-2f37
         [StringLength(500)]
         public string Address { get; set; } = string.Empty;
 
         [Required]
+=======
+        [StringLength(200)]
+        public string Address { get; set; } = string.Empty;
+
+////// erp
         [StringLength(15)]
         public string GST { get; set; } = string.Empty;
 
         [Required]
+////// cursor/develop-net-core-erp-backend-api-2f37
+=======
+        [Phone]
+//////erp
         [StringLength(15)]
         public string PhoneNumber { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
+///// cursor/develop-net-core-erp-backend-api-2f37
 
     public class UserRegistrationDto
     {
@@ -80,4 +102,6 @@ namespace ERPBackend.Models
         public string ShopName { get; set; } = string.Empty;
         public DateTime ExpiresAt { get; set; }
     }
+=======
+////// erp
 }
